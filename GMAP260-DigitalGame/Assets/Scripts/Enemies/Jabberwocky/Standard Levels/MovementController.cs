@@ -4,7 +4,8 @@ using System.Collections;
 public class MovementController : MonoBehaviour {
 
 	public GameObject player;
-
+	public float increaseSpeed;
+	public float showTime;
 	private Rigidbody2D rig2D;
 	private PlayerController pControl;
 	private float speedX;
@@ -19,6 +20,9 @@ public class MovementController : MonoBehaviour {
 
 
 		startPush(speedX);
+
+		InvokeRepeating("speedIncrease", 10F, 10F);
+		InvokeRepeating("showMe", showTime, showTime);
 	}
 	
 	// Update is called once per frame
@@ -41,5 +45,13 @@ public class MovementController : MonoBehaviour {
 
 	private void startPush(float speed){
 		rig2D.AddForce(Vector2.right*speed, ForceMode2D.Force);
+	}
+
+	private void speedIncrease(){
+		rig2D.velocity += new Vector2(increaseSpeed, 0);
+	}
+
+	private void showMe(){
+		transform.position = new Vector3(player.transform.position.x - 6, transform.position.y, transform.position.z);
 	}
 }

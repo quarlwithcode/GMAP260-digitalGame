@@ -5,10 +5,10 @@ public class JubJubBirdController : MonoBehaviour {
 
 	public int activateDistance;
 	public float counter;
-	public float rSpeedX;
-	public float rSpeedY;
-	public float lSpeedX;
-	public float lSpeedY;
+	public float speedX;
+	public float speedY;
+	public float extraTotalSpeed;
+	public float extraSpeed;
 	public float decreaseAmount;
 
 	private GameObject player;
@@ -70,16 +70,32 @@ public class JubJubBirdController : MonoBehaviour {
 
 	void move(){
 		if(player.transform.position.x > transform.position.x){
-			rig2D.velocity = new Vector2(rSpeedX, rig2D.velocity.y);
+			rig2D.velocity = new Vector2(speedX, rig2D.velocity.y);
 		}
 		if(player.transform.position.x < transform.position.x){
-			rig2D.velocity = new Vector2(-rSpeedX, rig2D.velocity.y);
+			rig2D.velocity = new Vector2(-speedX, rig2D.velocity.y);
 		}
 		if(player.transform.position.y > transform.position.y){
-			rig2D.velocity = new Vector2(rig2D.velocity.x, rSpeedY);
+			rig2D.velocity = new Vector2(rig2D.velocity.x, speedY);
 		}
 		if(player.transform.position.y < transform.position.y){
-			rig2D.velocity = new Vector2(rig2D.velocity.x, -rSpeedY);
+			rig2D.velocity = new Vector2(rig2D.velocity.x, -speedY);
+		}
+
+		actualVelocity = Mathf.Sqrt(Mathf.Pow(rig2D.velocity.x, 2) + Mathf.Pow(rig2D.velocity.y, 2));
+
+		if(actualVelocity > player.GetComponent<Rigidbody2D>().velocity.x){
+			actualVelocity = player.GetComponent<Rigidbody2D>().velocity.x + extraTotalSpeed;
+
+			speedX = Mathf.Sqrt(actualVelocity);
+			speedY = Mathf.Sqrt(actualVelocity);
+
+
+		}
+
+		if(player.transform.position.y < (transform.position.y + .75F) &&
+		   player.transform.position.y > (transform.position.y - .75F)){
+			speedX += extraSpeed;
 		}
 	}
 

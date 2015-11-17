@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour {
 	public float speed;
 	
 	public float jumpHeight;
+
+	public float increaseTime;
 	
 	private Rigidbody2D rig2D;
 	
@@ -20,7 +22,7 @@ public class PlayerController : MonoBehaviour {
 		startPush(speed);
 
 
-		InvokeRepeating("increaseSpeed", 10F, 10F);
+		InvokeRepeating("increaseSpeed", increaseTime, increaseTime);
 	}
 	
 	// Update is called once per frame
@@ -64,7 +66,7 @@ public class PlayerController : MonoBehaviour {
 
 	public void increaseSpeed(){
 		Debug.Log ("Faster");
-		rig2D.AddForce(Vector2.right*(speed/3F), ForceMode2D.Force);
+		rig2D.AddForce(Vector2.right*(speed/5F), ForceMode2D.Force);
 	}
 
 }

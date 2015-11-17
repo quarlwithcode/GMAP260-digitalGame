@@ -12,6 +12,8 @@ public class UIManager : MonoBehaviour {
 	private bool onPlayLevel;
 	// Use this for initialization
 	void Start () {
+		Time.timeScale = 1;
+
 		pauseObjects = GameObject.FindGameObjectsWithTag("ShowOnPause");
 		finishObjects = GameObject.FindGameObjectsWithTag("ShowOnFinish");
 
@@ -39,6 +41,11 @@ public class UIManager : MonoBehaviour {
 				pauseControl();
 			}
 		}
+
+		if(pControl.dead){
+			showFinished();
+		}
+
 	}
 	
 	
